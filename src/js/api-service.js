@@ -13,7 +13,6 @@ export default class ImgApiServise {
       .then(response => response.json())
       .then(({ hits }) => {
         this.incrementPage();
-
         return hits;
       });
   }

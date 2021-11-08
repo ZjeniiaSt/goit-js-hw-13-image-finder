@@ -1,25 +1,34 @@
 import ImgApiServise from './api-service';
 import imagesMarkup from '../templates/images_markup.hbs';
+import LoadMoreBTN from './load-more-btn';
 import getRefs from './getRefs';
-
 const refs = getRefs();
 const imgApiServise = new ImgApiServise();
+const loadMoreBtn = new LoadMoreBTN({ selector: '[data-action="load-more"]', hidden: true });
 
 refs.searchForm.addEventListener('input', onSearch);
-refs.loadMoreBtn.addEventListener('click', onLoadMore);
+loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 
 function onSearch(event) {
   event.preventDefault();
-  imgApiServise.searchQuery = event.currentTarget.elements.query.value;
-  imgApiServise.resetPage();
-  imgApiServise.fetchArticles().then(hits => {
+  imgApiServise.query = event.currentTarget.elements.query.value;
+  if (imgApiServise.query.length >= 2) {
+    loadMoreBtn.show();
+    imgApiServise.resetPage();
     clearArticlesContainer();
-    appendArticlesleMarkup(hits);
-  });
+    fetchArticles();
+  } else {
+    clearArticlesContainer();
+    loadMoreBtn.hide();
+  }
 }
 
-function onLoadMore() {
-  imgApiServise.fetchArticles();
+function fetchArticles() {
+  loadMoreBtn.disable();
+  imgApiServise.fetchArticles().then(hits => {
+    appendArticlesleMarkup(hits);
+    loadMoreBtn.enable();
+  });
 }
 
 function appendArticlesleMarkup(hits) {

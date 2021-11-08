@@ -39,68 +39,36 @@ input::placeholder {
 }
 
 .text-box {
-  position: absolute;
-  bottom: 0;
-  left: 33%;
+  text-align: center;
 }
 
-.btn:link,
-.btn:visited {
-  text-decoration: none;
-  padding: 15px 40px;
-  display: inline-block;
+.btn {
+  width: 150px;
+  height: 42px;
+  padding-left: 15px;
   border-radius: 42px;
-  transition: all 0.2s;
+  border: 2px solid yellow;
+  background: #808080;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn span {
+  color: yellow;
 }
 
 .btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px yellow;
+  border: gray;
 }
 
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px yellow;
+button.is-hidden {
+  display: none;
 }
 
-.btn-white {
-  background-color: gray;
-  color: yellow;
-}
-
-.btn::after {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  width: 100%;
-  border-radius: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  transition: all 0.4s;
-}
-
-.btn:hover::after {
-  transform: scaleX(1.4) scaleY(1.6);
-  opacity: 0;
-}
-
-.btn-animated {
-  animation: moveInBottom 5s ease-out;
-  animation-fill-mode: backwards;
-}
-
-@keyframes moveInBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
+button > .spinner.is-hidden {
+  display: none;
 }
 
 .grid-container {
@@ -123,4 +91,15 @@ img {
 .photo-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px yellow;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stats-item {
+  display: flex;
+  padding: 10px;
+  margin: 0;
 }
