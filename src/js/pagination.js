@@ -1,6 +1,7 @@
 import ImgApiServise from './api-service';
 import imagesMarkup from '../templates/images_markup.hbs';
 import LoadMoreBTN from './load-more-btn';
+import openModal from './lightBox';
 import getRefs from './getRefs';
 const refs = getRefs();
 const imgApiServise = new ImgApiServise();
@@ -8,6 +9,7 @@ const loadMoreBtn = new LoadMoreBTN({ selector: '[data-action="load-more"]', hid
 
 refs.searchForm.addEventListener('input', onSearch);
 loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
+refs.cardContainer.addEventListener('click', openModal);
 
 function onSearch(event) {
   event.preventDefault();
