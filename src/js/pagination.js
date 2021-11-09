@@ -2,6 +2,8 @@ import ImgApiServise from './api-service';
 import imagesMarkup from '../templates/images_markup.hbs';
 import LoadMoreBTN from './load-more-btn';
 import openModal from './lightBox';
+import '@pnotify/core/dist/BrightTheme.css';
+import { alert } from '@pnotify/core';
 import getRefs from './getRefs';
 const refs = getRefs();
 const imgApiServise = new ImgApiServise();
@@ -27,10 +29,13 @@ function onSearch(event) {
 
 function fetchArticles() {
   loadMoreBtn.disable();
-  imgApiServise.fetchArticles().then(hits => {
-    appendArticlesleMarkup(hits);
-    loadMoreBtn.enable();
-  });
+  imgApiServise
+    .fetchArticles()
+    .then(hits => {
+      appendArticlesleMarkup(hits);
+      loadMoreBtn.enable();
+    })
+    .catch(onFetchError);
 }
 
 function appendArticlesleMarkup(hits) {
@@ -39,4 +44,14 @@ function appendArticlesleMarkup(hits) {
 
 function clearArticlesContainer() {
   refs.cardContainer.innerHTML = '';
+}
+
+function onFetchError(error) {
+  alert({
+    title: false,
+    text: 'Oops, we have a problem',
+    shadow: true,
+    sticker: false,
+    delay: 3000,
+  });
 }
